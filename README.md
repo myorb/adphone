@@ -5,10 +5,17 @@
 непосредственно число, не используя стандартные функции приведения типов  
 (например “1252абв” в 1252)
 
+```php
+echo preg_replace('\/D\','','123awd');
+```
   
 #2  
 Написать код приведения даты формата “01/18/2013 01:02:03”  
 к формату “2013-01-18 01:02:03”  
+
+```php
+date("Y-m-d H:i:s", strtotime($date));
+```
 
 #3  
 Оптимизировать код и найти ошибку  
@@ -24,6 +31,19 @@
 		if ( $idx != $dbx && $dbl['topic'] == $row['topic'] && $dbl['message'] == $row['message'] )
 		unset($data[$dbx])
 	}
+```php
+$dataCopy = $data;
+foreach ($data as $idx => $row) {
+    foreach ($dataCopy as $dbx => $dbl) {
+        if ( $idx != $dbx && $dbl['topic'] == $row['topic'] && $dbl['message'] == $row['message'] ) {
+            unset($data[$idx]);
+            unset($data[$dbx]);
+            unset($dataCopy[$idx]);
+            unset($dataCopy[$dbx]);
+        }
+    }
+}
+```
   
   
 #4  
